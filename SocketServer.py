@@ -70,9 +70,11 @@ class SocketServer(LineReceiver):
 
     def lineReceived(self, data):
         if data[0] == '+':
-            PressKey(data[1])
+            PressKey(ord(data[1]))
+        elif data[0] == '-':
+            ReleaseKey(ord(data[1]))
         else:
-            ReleaseKey(data[1])
+            print 'received {0}'.format(data)
         """
         for c in self.factory.clients:
             c.message(data)
