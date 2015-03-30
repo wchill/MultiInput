@@ -62,10 +62,6 @@ class SocketServer(LineReceiver):
 
     def __init__(self, factory):
         self.factory = factory
-        self.shoot_event = False
-        self.reload_event = False
-        self.crouch_event = False
-        self.use_event = False
         self.peer = ''
 
     def lineReceived(self, data):
@@ -75,42 +71,6 @@ class SocketServer(LineReceiver):
             ReleaseKey(ord(data[1]))
         else:
             print 'received {0}'.format(data)
-        """
-        for c in self.factory.clients:
-            c.message(data)
-        print 'received {0}'.format(data)
-        """
-        # print repr(data)
-        # event = data.split(' ')
-
-        """
-        if int(event[0], 16) < 48 and int(event[1], 16) < 48:
-            PressKey(0x12)
-            self.use_event = True
-        elif self.use_event:
-            self.use_event = False
-            ReleaseKey(0x12)
-
-        if event[3] == '1':
-            PressKey(0x1D)
-            self.crouch_event = True
-        elif self.crouch_event:
-            self.crouch_event = False
-            ReleaseKey(0x1D)
-
-        if event[4] == '1':
-            user32.mouse_event(0x0002, 0, 0, 0, 0) # press left
-            self.shoot_event = True
-        elif self.shoot_event:
-            self.shoot_event = False
-            user32.mouse_event(0x0004, 0, 0, 0, 0) # release left
-
-        if event[5] == '1' and self.reload_event == False:
-            SendKeys.SendKeys('R')
-            self.reload_event = True
-        elif event[5] == '0':
-            self.reload_event = False
-        """
 
     def connectionMade(self):
         self.peer = self.getPeerString()
